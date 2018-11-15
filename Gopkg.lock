@@ -29,12 +29,12 @@
   version = "v4.0.0"
 
 [[projects]]
-  digest = "1:4d3876e2ce747cfeded59a1210056e894d2593b73e843454a19d7f845afad23e"
+  digest = "1:0cc3c49e3d25739ff9b5cbab32eb5e63f4d2ea3c9b3262b02f45c081d6fc1eeb"
   name = "github.com/TerrexTech/go-eventstore-models"
   packages = ["model"]
   pruneopts = "UT"
-  revision = "4d0913b6357bca72d45064058f63c02d20c9e2c0"
-  version = "v4.0.0"
+  revision = "9b039f75d51b77ce510458f42038b5b29fa57936"
+  version = "v4.1.0"
 
 [[projects]]
   digest = "1:017b08c994a864ea4e94f1837037c14087f784a1e99d54173eba9050f7a81f74"
@@ -110,7 +110,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:348bbd07b4a983b2f811f81948c78142de09bb9fcf25284bee5e2ab3bdd0f6f9"
+  digest = "1:7173cfc9eec4c3f4b1f9260e60cd2f73a8f9b49739d00647f71a1eb14c498939"
   name = "github.com/gocql/gocql"
   packages = [
     ".",
@@ -119,7 +119,7 @@
     "internal/streams",
   ]
   pruneopts = "UT"
-  revision = "68ae1e384be4d7cd7df0f5b77f331759d806308e"
+  revision = "9de8c0414fd7ff72ee819f25a66e4942cb223873"
 
 [[projects]]
   digest = "1:c594a691090b434d55c67f6cc8e326ef5ba49452abc059821bd5d4fd4cdef08c"
@@ -324,7 +324,7 @@
   name = "golang.org/x/crypto"
   packages = ["pbkdf2"]
   pruneopts = "UT"
-  revision = "e4dc69e5b2fd71dcaf8bd5d054eb936deb78d1fa"
+  revision = "3d3f9f413869b949e48070b5bc593aa22cc2b8f2"
 
 [[projects]]
   branch = "master"
@@ -336,7 +336,7 @@
     "html/charset",
   ]
   pruneopts = "UT"
-  revision = "03003ca0c849e57b6ea29a4bab8d3cb6e4d568fe"
+  revision = "adae6a3d119ae4890b46832a2e88a95adc62b8e7"
 
 [[projects]]
   branch = "master"
