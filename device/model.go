@@ -2,6 +2,7 @@ package device
 
 import (
 	"encoding/json"
+	"log"
 
 	util "github.com/TerrexTech/go-commonutils/commonutil"
 
@@ -17,23 +18,29 @@ const AggregateID int8 = 6
 // Device defines the Device Aggregate.
 type Device struct {
 	ID              objectid.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	ItemID          uuuid.UUID        `bson:"itemID,omitempty" json:"itemID,omitempty"`
 	DeviceID        uuuid.UUID        `bson:"deviceID,omitempty" json:"deviceID,omitempty"`
 	DateInstalled   int64             `bson:"dateInstalled,omitempty" json:"dateInstalled,omitempty"`
 	Lot             string            `bson:"lot,omitempty" json:"lot,omitempty"`
 	LastMaintenance int64             `bson:"lastMaintenance,omitempty" json:"lastMaintenance,omitempty"`
+	Name            string            `bson:"name,omitempty" json:"name,omitempty"`
 	Status          string            `bson:"status,omitempty" json:"status,omitempty"`
+	SKU             string            `bson:"sku,omitempty" json:"sku,omitempty"`
 }
 
 // MarshalBSON returns bytes of BSON-type.
 func (d Device) MarshalBSON() ([]byte, error) {
 	in := map[string]interface{}{
+		"itemID":          d.ItemID.String(),
 		"deviceID":        d.DeviceID.String(),
 		"dateInstalled":   d.DateInstalled,
 		"lot":             d.Lot,
 		"lastMaintenance": d.LastMaintenance,
 		"status":          d.Status,
+		"sku":             d.SKU,
 	}
 
+	log.Printf("%+v", in)
 	if d.ID != objectid.NilObjectID {
 		in["_id"] = d.ID
 	}
@@ -43,13 +50,16 @@ func (d Device) MarshalBSON() ([]byte, error) {
 // MarshalJSON returns bytes of JSON-type.
 func (d *Device) MarshalJSON() ([]byte, error) {
 	in := map[string]interface{}{
+		"itemID":          d.ItemID.String(),
 		"deviceID":        d.DeviceID.String(),
 		"dateInstalled":   d.DateInstalled,
 		"lot":             d.Lot,
 		"lastMaintenance": d.LastMaintenance,
 		"status":          d.Status,
+		"sku":             d.SKU,
 	}
 
+	log.Printf("%+v", in)
 	if d.ID != objectid.NilObjectID {
 		in["_id"] = d.ID.Hex()
 	}
@@ -65,6 +75,7 @@ func (d *Device) UnmarshalBSON(in []byte) error {
 		return err
 	}
 
+	log.Printf("%+v", m)
 	err = d.unmarshalFromMap(m)
 	return err
 }
@@ -78,6 +89,7 @@ func (d *Device) UnmarshalJSON(in []byte) error {
 		return err
 	}
 
+	log.Printf("%+v", m)
 	err = d.unmarshalFromMap(m)
 	return err
 }
@@ -99,6 +111,19 @@ func (d *Device) unmarshalFromMap(m map[string]interface{}) error {
 		}
 	}
 
+	if m["itemID"] != nil {
+		itemIDStr, assertOK := m["itemID"].(string)
+		if !assertOK {
+			err = errors.New("error asserting to string")
+			err = errors.Wrap(err, "Error while asserting ItemID")
+			return err
+		}
+		d.ItemID, err = uuuid.FromString(itemIDStr)
+		if err != nil {
+			err = errors.Wrap(err, "Error while parsing ItemID")
+			return err
+		}
+	}
 	if m["deviceID"] != nil {
 		deviceIDStr, assertOK := m["deviceID"].(string)
 		if !assertOK {
@@ -132,6 +157,14 @@ func (d *Device) unmarshalFromMap(m map[string]interface{}) error {
 		if !assertOK {
 			err = errors.New("error asserting to string")
 			err = errors.Wrap(err, "Error while asserting Lot")
+			return err
+		}
+	}
+	if m["sku"] != nil {
+		d.SKU, assertOK = m["sku"].(string)
+		if !assertOK {
+			err = errors.New("error asserting to string")
+			err = errors.Wrap(err, "Error while asserting SKU")
 			return err
 		}
 	}
