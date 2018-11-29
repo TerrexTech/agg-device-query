@@ -29,7 +29,7 @@ var _ = Describe("DeviceAggregate", func() {
 			mockEvent := &model.Event{
 				EventAction:   "delete",
 				CorrelationID: cid,
-				AggregateID:   2,
+				AggregateID:   6,
 				Data:          []byte("{}"),
 				NanoTime:      time.Now().UnixNano(),
 				UserUUID:      uid,

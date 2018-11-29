@@ -36,6 +36,7 @@ func (d Device) MarshalBSON() ([]byte, error) {
 		"dateInstalled":   d.DateInstalled,
 		"lot":             d.Lot,
 		"lastMaintenance": d.LastMaintenance,
+		"name":            d.Name,
 		"status":          d.Status,
 		"sku":             d.SKU,
 	}
@@ -55,6 +56,7 @@ func (d *Device) MarshalJSON() ([]byte, error) {
 		"dateInstalled":   d.DateInstalled,
 		"lot":             d.Lot,
 		"lastMaintenance": d.LastMaintenance,
+		"name":            d.Name,
 		"status":          d.Status,
 		"sku":             d.SKU,
 	}
@@ -165,6 +167,14 @@ func (d *Device) unmarshalFromMap(m map[string]interface{}) error {
 		if !assertOK {
 			err = errors.New("error asserting to string")
 			err = errors.Wrap(err, "Error while asserting SKU")
+			return err
+		}
+	}
+	if m["name"] != nil {
+		d.Name, assertOK = m["name"].(string)
+		if !assertOK {
+			err = errors.New("error asserting to string")
+			err = errors.Wrap(err, "Error while asserting Name")
 			return err
 		}
 	}
